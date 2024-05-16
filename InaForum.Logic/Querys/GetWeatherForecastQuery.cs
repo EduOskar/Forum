@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InaForum.Logic
+namespace InaForum.Logic.Querys
 {
     public class GetWeatherForecastQuery : IRequest<IEnumerable<WeatherForecast>>
     {

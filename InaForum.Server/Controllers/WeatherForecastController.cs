@@ -1,4 +1,5 @@
 using InaForum.Logic;
+using InaForum.Logic.Querys;
 using InaForum.Server.Mapper;
 using InaForum.Server.ViewModels;
 using MediatR;

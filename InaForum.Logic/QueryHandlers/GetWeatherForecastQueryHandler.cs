@@ -1,13 +1,9 @@
 ﻿using InaForum.Domain;
 using InaForum.Infrastructure.Repository.IRepository;
+using InaForum.Logic.Querys;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InaForum.Logic
+namespace InaForum.Logic.QueryHandlers
 {
     public class GetWeatherForecastQueryHandler : IRequestHandler<GetWeatherForecastQuery, IEnumerable<WeatherForecast>>
     {

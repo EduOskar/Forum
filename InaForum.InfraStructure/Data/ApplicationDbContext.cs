@@ -20,10 +20,25 @@ namespace InaForum.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<User>(user =>
             {
                 user.HasKey(u => u.Id);
             });
+
+            modelBuilder.Entity<User>().HasData(
+                new User("Oskar", "Ahling", "Klade", "Hejsan123!", "Oskar@Mail.com")
+                {
+                },
+                new User("Ina", "Nilsson", "Nubbebub", "Hejsan123!", "Ina@Mail.com")
+                {
+
+                }
+            );
+            
         }
+
+        
     }
 }

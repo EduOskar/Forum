@@ -22,11 +22,13 @@ namespace InaForum.Domain.Models
 
         public User(string firstName, string lastName, string userName, string password, string email ) 
         {
+            Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             UserName = userName;
             Password = password;
             Email = email;
         }
+
     }
 }

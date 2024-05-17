@@ -23,9 +23,21 @@ namespace InaForum.Domain.Repository
         {
             await _dbContext.AddAsync(user);
 
-            await _dbContext.SaveChangesAsync();
+            return await Save();
+        }
 
-            return true;
+        public async Task<bool> DeleteUser(Guid userId)
+        {
+            var userToDelete = _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (userToDelete != null)
+            {
+                _dbContext.Remove(userToDelete);
+
+                return await Save();
+            }
+
+            throw new Exception("Could not delete worker");
         }
 
         public async Task<User> GetUser(Guid ids)
@@ -38,6 +50,13 @@ namespace InaForum.Domain.Repository
             }
 
             throw new Exception("No user with that Guid exist");
+        }
+
+        public async Task<bool> Save()
+        {
+           var save = await _dbContext.SaveChangesAsync();
+
+            return save > 0;
         }
     }
 }

@@ -1,11 +1,11 @@
-using InaForum.Domain;
+using InaForum.Domain.Models;
 using InaForum.Domain.Repository;
 using InaForum.Domain.Repository.IRepository;
 using InaForum.Infrastructure.Data;
-using InaForum.Infrastructure.Repository;
-using InaForum.Infrastructure.Repository.IRepository;
-using InaForum.Logic.QueryHandlers;
-using InaForum.Logic.Querys;
+using InaForum.Logic.Commands.CreateCommands;
+using InaForum.Logic.Commands.HandleCommands;
+using InaForum.Logic.Queries.QueryHandlers;
+using InaForum.Logic.Queries.Querys;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -32,12 +32,13 @@ services.AddCors(options =>
 
 //services.AddTransient <IRequestHandler<GetWeatherForecastQuery GetWeatherForecastQueryHandler>>();
 
-services.AddScoped<IWeatherForeccastRepository, WeatherForecastRepository>();
 services.AddScoped<IUserRepository, UserRepository>();
 
 
 //services.AddTransient<IMediator, Mediator>();
-services.AddTransient<IRequestHandler<GetWeatherForecastQuery, IEnumerable<WeatherForecast>>, GetWeatherForecastQueryHandler>();
+services.AddTransient<IRequestHandler<GetUserQuery, User>, GetUserQueryHandler>();
+services.AddTransient<IRequestHandler<CreateUserCommand, User>, CreateUserCommandHandler >();
+services.AddTransient<IRequestHandler<DeleteUserCommand, bool>, DeleteUserCommandHandler >();
 
 
 var app = builder.Build();

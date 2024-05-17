@@ -1,5 +1,6 @@
 ﻿using InaForum.Domain.Models;
-using InaForum.Logic.Querys;
+using InaForum.Logic.Commands.CreateCommands;
+using InaForum.Logic.Queries.Querys;
 using InaForum.Server.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -21,9 +22,9 @@ namespace InaForum.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserViewModel>> GetUser(Guid Id)
+        public async Task<ActionResult<UserViewModel>> GetUser(Guid UserId)
         {
-            var user = await _mediator.Send(new GetUserQuery(Id));
+            var user = await _mediator.Send(new GetUserQuery(UserId));
 
             if (user != null)
             {
@@ -31,6 +32,38 @@ namespace InaForum.Server.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<UserViewModel>> CreateUser(User user)
+        {
+            if (user != null)
+            {
+
+                var userCreated = await _mediator.Send(
+                new CreateUserCommand(
+                    user.Id, user.FirstName, user.LastName, user.UserName, user.Password, user.Email));
+
+                return CreatedAtAction("GetUser", new { UserId = userCreated.Id }, userCreated);
+            }
+
+            return BadRequest();
+
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<bool>> DeleteUser(Guid userId)
+        {
+            if (await _mediator.Send(new DeleteUserCommand(userId)))
+            {
+                return NoContent();
+            }
+
+            return BadRequest();
         }
     }
 }

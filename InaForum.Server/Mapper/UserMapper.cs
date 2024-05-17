@@ -11,6 +11,7 @@ namespace InaForum.Server.Mapper
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
+            Username = user.UserName,
             Email = user.Email,
         };
     }

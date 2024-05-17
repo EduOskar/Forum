@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InaForum.Logic.Querys
+namespace InaForum.Logic.Queries.Querys
 {
     public class GetUserQuery : IRequest<User>
     {

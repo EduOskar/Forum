@@ -12,5 +12,9 @@ namespace InaForum.Domain.Repository.IRepository
         public Task<User> GetUser(Guid ids);
 
         public Task<bool> AddUser(User user);
+
+        public Task<bool> DeleteUser(Guid userId);
+
+        Task<bool> Save();
     }
 }

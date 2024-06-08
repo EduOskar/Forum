@@ -21,10 +21,10 @@ namespace InaForum.Server.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<UserViewModel>> GetUser(Guid UserId)
+        [HttpGet("{userId:guid}")]
+        public async Task<ActionResult<UserViewModel>> GetUser(Guid userId)
         {
-            var user = await _mediator.Send(new GetUserQuery(UserId));
+            var user = await _mediator.Send(new GetUserQuery(userId));
 
             if (user != null)
             {
@@ -32,6 +32,19 @@ namespace InaForum.Server.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ICollection<UserViewModel>>> GetAllUsers()
+        {
+            var users = await _mediator.Send(new GetAllUsersQuery());
+
+            if (users != null)
+            {
+                return Ok(users);
+            }
+
+            return BadRequest();
         }
 
         [HttpPost]
@@ -53,7 +66,7 @@ namespace InaForum.Server.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete("{userId:guid}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<bool>> DeleteUser(Guid userId)
@@ -63,7 +76,7 @@ namespace InaForum.Server.Controllers
                 return NoContent();
             }
 
-            return BadRequest();
+            return BadRequest("User not found or could not be deleted");
         }
     }
 }

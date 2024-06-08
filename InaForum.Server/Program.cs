@@ -37,6 +37,7 @@ services.AddScoped<IUserRepository, UserRepository>();
 
 //services.AddTransient<IMediator, Mediator>();
 services.AddTransient<IRequestHandler<GetUserQuery, User>, GetUserQueryHandler>();
+services.AddTransient<IRequestHandler<GetAllUsersQuery, ICollection<User>>, GetAllUsersQueryHandler>();
 services.AddTransient<IRequestHandler<CreateUserCommand, User>, CreateUserCommandHandler >();
 services.AddTransient<IRequestHandler<DeleteUserCommand, bool>, DeleteUserCommandHandler >();
 

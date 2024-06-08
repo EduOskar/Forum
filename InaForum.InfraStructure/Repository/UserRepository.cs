@@ -28,7 +28,7 @@ namespace InaForum.Domain.Repository
 
         public async Task<bool> DeleteUser(Guid userId)
         {
-            var userToDelete = _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var userToDelete = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             if (userToDelete != null)
             {
@@ -37,7 +37,19 @@ namespace InaForum.Domain.Repository
                 return await Save();
             }
 
-            throw new Exception("Could not delete worker");
+            throw new Exception("Could not delete users");
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            var users = await _dbContext.Users.ToListAsync();
+
+            if (users is not null)
+            {
+                return users;
+            }
+
+            throw new Exception("Could not get list of users");
         }
 
         public async Task<User> GetUser(Guid ids)
